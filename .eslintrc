@@ -1,0 +1,13 @@
+{
+    "extends": [
+        "finn",
+        "finn/node",
+        "plugin:ava/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 8
+    },
+    "plugins": [
+        "ava"
+    ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "brakes-prometheus",
+  "version": "0.0.0",
+  "description": "Expose Brakes metrics as Prometheus data",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "compile": "babel brakes-events.js -o index.js",
+    "cover": "nyc ava",
+    "lint": "eslint .",
+    "prepublish": "not-in-install && npm run compile || in-install",
+    "postpublish": "git push --follow-tags",
+    "pretest": "npm run lint",
+    "test": "echo \"No tests specified\""
+  },
+  "keywords": [
+    "hystrix",
+    "circuit-break",
+    "fallback",
+    "metrics",
+    "prometheus",
+    "prom",
+    "statsd",
+    "brakes"
+  ],
+  "author": "Simen Bekkhus <sbekkhus91@gmail.com>",
+  "license": "MIT",
+  "repository": "finn-no/node-brakes-prometheus",
+  "dependencies": {},
+  "peerDependencies": {
+    "prom-client": ">=3.2 <6"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-cli": "^6.16.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.16.3",
+    "brakes": "^2.3.0",
+    "eslint": "^3.7.1",
+    "eslint-config-finn": "^1.0.0-beta.1",
+    "eslint-plugin-ava": "^3.1.0",
+    "in-publish": "^2.0.0",
+    "nyc": "^8.3.0",
+    "prom-client": "^5.0.2",
+    "require-uncached": "^1.0.2"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  }
+}
