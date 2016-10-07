@@ -13,7 +13,7 @@
     "prepublish": "not-in-install && npm run compile || in-install",
     "postpublish": "git push --follow-tags",
     "pretest": "npm run lint",
-    "test": "echo \"No tests specified\""
+    "test": "ava"
   },
   "keywords": [
     "hystrix",

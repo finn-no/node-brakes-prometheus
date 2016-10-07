@@ -62,6 +62,8 @@ function addEventsForStats (breaker) {
     breaker.on('healthCheckFailed', () => healthCheckFailedCount.labels(breakerName).inc());
     breaker.on('circuitClosed', () => circuitClosedCount.labels(breakerName).inc());
     breaker.on('circuitOpen', () => circuitOpenedCount.labels(breakerName).inc());
+
+    return breaker;
 }
 
 export default (...args) => {

@@ -104,3 +104,11 @@ test.serial('handle timeouts', async t => {
 
     brake.destroy();
 });
+
+test.serial('return input', t => {
+    const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
+
+    t.true(t.context.module(brake) === brake);
+
+    brake.destroy();
+});
