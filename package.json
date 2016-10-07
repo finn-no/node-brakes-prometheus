@@ -1,6 +1,6 @@
 {
   "name": "brakes-prometheus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Expose Brakes metrics as Prometheus data",
   "main": "index.js",
   "files": [
