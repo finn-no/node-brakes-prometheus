@@ -48,11 +48,9 @@ This module exposes 9 metrics, all using the name of the `Brake` as the label:
 [npm-image]: https://img.shields.io/npm/v/brakes-prometheus.svg
 [david-url]: https://david-dm.org/finn-no/node-brakes-prometheus
 [david-image]: https://img.shields.io/david/finn-no/node-brakes-prometheus.svg
-[david-dev-url]: https://david-dm.org/finn-no/node-brakes-prometheus#info=devDependencies
+[david-dev-url]: https://david-dm.org/finn-no/node-brakes-prometheus?type=dev
 [david-dev-image]: https://img.shields.io/david/dev/finn-no/node-brakes-prometheus.svg
-[david-peer-url]: https://david-dm.org/finn-no/node-brakes-prometheus#info=peerDependencies
+[david-peer-url]: https://david-dm.org/finn-no/node-brakes-prometheus?type=peer
 [david-peer-image]: https://img.shields.io/david/peer/finn-no/node-brakes-prometheus.svg
-[david-optional-url]: https://david-dm.org/finn-no/node-brakes-prometheus#info=optionalDependencies
-[david-optional-image]: https://img.shields.io/david/optional/finn-no/node-brakes-prometheus.svg
 [prom-client-url]: https://github.com/siimon/prom-client
 [brakes-url]: https://github.com/awolden/brakes
