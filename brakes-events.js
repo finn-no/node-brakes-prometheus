@@ -18,8 +18,8 @@ function initializeMetrics () {
             ['breaker_name'], { percentiles: [0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1] }),
         durationBuckets: new Histogram('breaker_duration_buckets_seconds', 'Resolver circuit breaker duration buckets',
             ['breaker_name'], {
-                buckets: exponentialBuckets(1, 1.5, 20)
-                    .map(f => Math.round(f * 10) / 10)
+                buckets: exponentialBuckets(0.001, 1.5, 20)
+                    .map(f => Math.round(f * 10000) / 10000)
                     .concat(Infinity),
             }),
     };
