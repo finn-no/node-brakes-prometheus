@@ -30,7 +30,7 @@
   "repository": "finn-no/node-brakes-prometheus",
   "dependencies": {},
   "peerDependencies": {
-    "prom-client": ">=3.2 <7"
+    "prom-client": ">=3.2 <8"
   },
   "devDependencies": {
     "ava": "^0.16.0",
