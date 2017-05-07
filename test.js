@@ -33,7 +33,7 @@ test.serial('listen to execution', async t => {
 
     await brake.exec();
 
-    t.deepEqual(register.getMetricsAsJSON()[0].values, [{ value: 1, labels: { breaker_name: 'some-name' } }]); // eslint-disable-line camelcase
+    t.deepEqual(register.getMetricsAsJSON()[0].values, [{ value: 1, labels: { breaker_name: 'some-name' }, timestamp: undefined }]); // eslint-disable-line camelcase
 
     brake.destroy();
 });
