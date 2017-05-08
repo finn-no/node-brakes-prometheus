@@ -3,12 +3,16 @@ import requireUncached from 'require-uncached';
 import Brakes from 'brakes';
 import register from 'prom-client/lib/register';
 
+const origNow = Date.now;
+
 test.beforeEach(t => {
     t.context.module = requireUncached('./brakes-events');
+    Date.now = () => 1494222986972;
     register.clear();
 });
 
-test.after(() => {
+test.after.always(() => {
+    Date.now = origNow;
     register.clear();
 });
 
@@ -33,12 +37,14 @@ test.serial('listen to execution', async t => {
 
     await brake.exec();
 
-    t.deepEqual(register.getMetricsAsJSON()[0].values, [{ value: 1, labels: { breaker_name: 'some-name' }, timestamp: undefined }]); // eslint-disable-line camelcase
+    // eslint-disable-next-line camelcase
+    t.deepEqual(register.getMetricsAsJSON()[0].values, [{ value: 1, labels: { breaker_name: 'some-name' }, timestamp: 1494222986972 }]);
 
     brake.destroy();
 });
 
 test.serial('record timings in seconds', async t => {
+    Date.now = origNow;
     const brake = new Brakes(() => new Promise(resolve => setTimeout(resolve, 250)), { name: 'some-name' });
 
     t.context.module(brake);

@@ -1,12 +1,30 @@
 let metrics;
 
 function initializeMetrics () {
-    const Counter = require('prom-client/lib/counter');
-    const Summary = require('prom-client/lib/summary');
-    const Histogram = require('prom-client/lib/histogram');
-    const exponentialBuckets = require('prom-client/lib/bucketGenerators').exponentialBuckets;
+    const { version } = require('prom-client/package.json');
+    let Counter;
+    let Summary;
+    let Histogram;
+    let exponentialBuckets;
+    let useTimestamp;
+
+    if (Number(version.split('.')[0]) >= 9) {
+        const prom = require('prom-client');
+        useTimestamp = true;
+        Counter = prom.Counter;
+        Summary = prom.Summary;
+        Histogram = prom.Histogram;
+        exponentialBuckets = prom.exponentialBuckets;
+    } else {
+        useTimestamp = false;
+        Counter = require('prom-client/lib/counter');
+        Summary = require('prom-client/lib/summary');
+        Histogram = require('prom-client/lib/histogram');
+        exponentialBuckets = require('prom-client/lib/bucketGenerators').exponentialBuckets;
+    }
 
     metrics = {
+        useTimestamp,
         executeCount: new Counter('breaker_execute_total', 'Resolver circuit breaker execute count', ['breaker_name']),
         successCount: new Counter('breaker_success_total', 'Resolver circuit breaker success count', ['breaker_name']),
         failureCount: new Counter('breaker_failure_total', 'Resolver circuit breaker failure count', ['breaker_name']),
@@ -35,33 +53,76 @@ function addEventsForStats (breaker) {
         executeCount, successCount, failureCount,
         timeoutCount, durationSummary, durationBuckets,
         healthCheckFailedCount, circuitClosedCount, circuitOpenedCount,
+        useTimestamp,
     } = metrics;
 
-    breaker.on('exec', () => executeCount.labels(breakerName).inc());
+    breaker.on('exec', () => {
+        if (useTimestamp) {
+            executeCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            executeCount.labels(breakerName).inc();
+        }
+    });
     breaker.on('success', duration => {
         // Make duration into seconds
         duration /= 1000;
-        successCount.labels(breakerName).inc();
+
+        if (useTimestamp) {
+            successCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            successCount.labels(breakerName).inc();
+        }
+
         durationSummary.labels(breakerName).observe(duration);
         durationBuckets.labels(breakerName).observe(duration);
     });
     breaker.on('failure', duration => {
         // Make duration into seconds
         duration /= 1000;
-        failureCount.labels(breakerName).inc();
+
+        if (useTimestamp) {
+            failureCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            failureCount.labels(breakerName).inc();
+        }
+
         durationSummary.labels(breakerName).observe(duration);
         durationBuckets.labels(breakerName).observe(duration);
     });
     breaker.on('timeout', duration => {
         // Make duration into seconds
         duration /= 1000;
-        timeoutCount.labels(breakerName).inc();
+
+        if (useTimestamp) {
+            timeoutCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            timeoutCount.labels(breakerName).inc();
+        }
+
         durationSummary.labels(breakerName).observe(duration);
         durationBuckets.labels(breakerName).observe(duration);
     });
-    breaker.on('healthCheckFailed', () => healthCheckFailedCount.labels(breakerName).inc());
-    breaker.on('circuitClosed', () => circuitClosedCount.labels(breakerName).inc());
-    breaker.on('circuitOpen', () => circuitOpenedCount.labels(breakerName).inc());
+    breaker.on('healthCheckFailed', () => {
+        if (useTimestamp) {
+            healthCheckFailedCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            healthCheckFailedCount.labels(breakerName).inc();
+        }
+    });
+    breaker.on('circuitClosed', () => {
+        if (useTimestamp) {
+            circuitClosedCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            circuitClosedCount.labels(breakerName).inc();
+        }
+    });
+    breaker.on('circuitOpen', () => {
+        if (useTimestamp) {
+            circuitOpenedCount.labels(breakerName).inc(1, Date.now());
+        } else {
+            circuitOpenedCount.labels(breakerName).inc();
+        }
+    });
 
     return breaker;
 }
