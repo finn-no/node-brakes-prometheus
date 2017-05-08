@@ -37,15 +37,24 @@ test.serial('listen to execution', async t => {
 
     await brake.exec();
 
-    // eslint-disable-next-line camelcase
-    t.deepEqual(register.getMetricsAsJSON()[0].values, [{ value: 1, labels: { breaker_name: 'some-name' }, timestamp: 1494222986972 }]);
+    t.deepEqual(register.getMetricsAsJSON()[0].values, [
+        {
+            value: 1,
+            // eslint-disable-next-line camelcase
+            labels: { breaker_name: 'some-name' },
+            timestamp: 1494222986972,
+        },
+    ]);
 
     brake.destroy();
 });
 
 test.serial('record timings in seconds', async t => {
     Date.now = origNow;
-    const brake = new Brakes(() => new Promise(resolve => setTimeout(resolve, 250)), { name: 'some-name' });
+    const brake = new Brakes(
+        () => new Promise(resolve => setTimeout(resolve, 250)),
+        { name: 'some-name' }
+    );
 
     t.context.module(brake);
 
@@ -60,7 +69,9 @@ test.serial('record timings in seconds', async t => {
 });
 
 test.serial('handle failure', async t => {
-    const brake = new Brakes(() => Promise.reject(new Error('test')), { name: 'some-name' });
+    const brake = new Brakes(() => Promise.reject(new Error('test')), {
+        name: 'some-name',
+    });
 
     t.context.module(brake);
 
@@ -86,7 +97,10 @@ test.serial('handle failure', async t => {
 });
 
 test.serial('handle timeouts', async t => {
-    const brake = new Brakes(() => new Promise(resolve => setTimeout(resolve, 250)), { name: 'some-name', timeout: 50 });
+    const brake = new Brakes(
+        () => new Promise(resolve => setTimeout(resolve, 250)),
+        { name: 'some-name', timeout: 50 }
+    );
 
     t.context.module(brake);
 
