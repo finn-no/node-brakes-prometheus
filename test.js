@@ -63,7 +63,7 @@ test.serial('record timings in seconds', async t => {
     await brake.exec();
 
     const durationSum = register.getMetricsAsJSON()[7].values[9].value;
-    t.true(durationSum >= 0.250 && durationSum < 0.275);
+    t.true(durationSum >= 0.25 && durationSum < 0.275);
 
     brake.destroy();
 });

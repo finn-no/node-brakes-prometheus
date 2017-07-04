@@ -3,15 +3,12 @@
         "finn",
         "finn/node",
         "plugin:ava/recommended",
-        "prettier"
+        "finn-prettier"
     ],
     "parserOptions": {
         "ecmaVersion": 8
     },
     "plugins": [
-        "ava", "prettier"
-    ],
-    "rules": {
-        "prettier/prettier": ["error", { "singleQuote": true, "trailingComma": "es5", "tabWidth": 4 }]
-    }
+        "ava"
+    ]
 }
