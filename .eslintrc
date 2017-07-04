@@ -2,13 +2,25 @@
     "extends": [
         "finn",
         "finn/node",
+        // https://github.com/eslint/eslint/issues/8813
+        "plugin:ava/recommended",
         "finn-prettier"
     ],
     "parserOptions": {
-        "ecmaVersion": 6
+        "ecmaVersion": 8,
+        "sourceType": "script"
     },
+    "plugins": [
+        "ava"
+    ],
     "rules": {
         "prefer-rest-params": "off",
         "prefer-spread": "off"
-    }
+    },
+    "overrides": [{
+        "files": "test.js",
+        "parserOptions": {
+            "sourceType": "module"
+        }
+    }]
 }
