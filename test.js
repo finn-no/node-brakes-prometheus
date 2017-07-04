@@ -1,12 +1,12 @@
 import test from 'ava';
 import requireUncached from 'require-uncached';
 import Brakes from 'brakes';
-import register from 'prom-client/lib/register';
+import { register } from 'prom-client';
 
 const origNow = Date.now;
 
 test.beforeEach(t => {
-    t.context.module = requireUncached('./brakes-events');
+    t.context.module = requireUncached('./');
     Date.now = () => 1494222986972;
     register.clear();
 });

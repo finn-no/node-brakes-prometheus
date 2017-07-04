@@ -7,11 +7,8 @@
     "index.js"
   ],
   "scripts": {
-    "compile": "babel brakes-events.js -o index.js",
-    "postcompile": "prettier index.js --write",
     "cover": "nyc ava",
     "lint": "eslint .",
-    "prepublish": "not-in-install && npm run compile || in-install",
     "postpublish": "git push --follow-tags",
     "pretest": "npm run lint",
     "test": "ava"
@@ -35,10 +32,6 @@
   },
   "devDependencies": {
     "ava": "^0.20.0",
-    "babel-cli": "^6.16.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "^1.3.2",
-    "babel-register": "^6.16.3",
     "brakes": "^2.3.0",
     "eslint": "^4.1.1",
     "eslint-config-finn": "^2.0.0",
@@ -49,10 +42,5 @@
     "prettier": "^1.5.2",
     "prom-client": "^10.0.0",
     "require-uncached": "^1.0.2"
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
   }
 }

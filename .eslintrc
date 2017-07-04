@@ -10,5 +10,9 @@
     },
     "plugins": [
         "ava"
-    ]
+    ],
+    "rules": {
+        "prefer-rest-params": "off",
+        "prefer-spread": "off"
+    }
 }
