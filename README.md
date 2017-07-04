@@ -11,12 +11,12 @@
 ## Usage
 
 Add event listeners to a [`brakes`][brakes-url] instance, using `prom-client`. This module has a peer dependency on
-[`prom-client`][prom-client-url]. Currently, version 3-5 are supported.
+[`prom-client`][prom-client-url]. Currently, version 10 is supported.
 
 ```js
 import Brake from 'brakes';
 import addEventListeners from 'brakes-prometheus';
-import prometheusRegister from 'prom-client/lib/register';
+import { register as prometheusRegister } from 'prom-client';
 
 const myBrake = new Brake(() => Promise.resolve(), { name: 'some name' });
 
