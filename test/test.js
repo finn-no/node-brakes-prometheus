@@ -6,7 +6,7 @@ import { register } from 'prom-client';
 const origNow = Date.now;
 
 test.beforeEach(t => {
-    t.context.module = requireUncached('./');
+    t.context.module = requireUncached('../');
     Date.now = () => 1494222986972;
     register.clear();
 });

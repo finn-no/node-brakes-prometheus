@@ -1,9 +1,11 @@
-const {
-    Counter,
-    Summary,
-    Histogram,
-    exponentialBuckets,
-} = require('prom-client');
+'use strict';
+
+const prometheus = require('prom-client');
+
+const Counter = prometheus.Counter;
+const Summary = prometheus.Summary;
+const Histogram = prometheus.Histogram;
+const exponentialBuckets = prometheus.exponentialBuckets;
 
 let metrics;
 
@@ -67,17 +69,15 @@ function addEventsForStats(breaker) {
 
     const breakerName = breaker.name;
 
-    const {
-        executeCount,
-        successCount,
-        failureCount,
-        timeoutCount,
-        durationSummary,
-        durationBuckets,
-        healthCheckFailedCount,
-        circuitClosedCount,
-        circuitOpenedCount,
-    } = metrics;
+    const executeCount = metrics.executeCount;
+    const successCount = metrics.successCount;
+    const failureCount = metrics.failureCount;
+    const timeoutCount = metrics.timeoutCount;
+    const durationSummary = metrics.durationSummary;
+    const durationBuckets = metrics.durationBuckets;
+    const healthCheckFailedCount = metrics.healthCheckFailedCount;
+    const circuitClosedCount = metrics.circuitClosedCount;
+    const circuitOpenedCount = metrics.circuitOpenedCount;
 
     breaker.on('exec', () =>
         executeCount.labels(breakerName).inc(1, Date.now())
