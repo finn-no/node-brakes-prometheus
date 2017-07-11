@@ -40,8 +40,12 @@ test.serial('listen to execution', async t => {
     t.deepEqual(register.getMetricsAsJSON()[0].values, [
         {
             value: 1,
-            // eslint-disable-next-line camelcase
-            labels: { breaker_name: 'some-name' },
+            labels: {
+                /* eslint-disable camelcase */
+                breaker_name: 'some-name',
+                breaker_group: 'defaultBrakeGroup',
+                /* eslint-enable */
+            },
             timestamp: 1494222986972,
         },
     ]);
