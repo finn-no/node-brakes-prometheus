@@ -10,17 +10,17 @@
         "ecmaVersion": 8,
         "sourceType": "script"
     },
-    "plugins": [
-        "ava"
-    ],
+    "plugins": ["ava"],
     "rules": {
         "prefer-rest-params": "off",
         "prefer-spread": "off"
     },
-    "overrides": [{
-        "files": "test.js",
-        "parserOptions": {
-            "sourceType": "module"
+    "overrides": [
+        {
+            "files": "test.js",
+            "parserOptions": {
+                "sourceType": "module"
+            }
         }
-    }]
+    ]
 }
