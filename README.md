@@ -4,6 +4,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/finn-no/node-brakes-prometheus.svg)](https://greenkeeper.io/)
 [![Dependency Status][david-image]][david-url]
 [![Peer Dependency Status][david-peer-image]][david-peer-url]
 [![Dev Dependency Status][david-dev-image]][david-dev-url]
