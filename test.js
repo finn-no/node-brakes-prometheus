@@ -46,7 +46,7 @@ test.serial('listen to execution', async t => {
                 breaker_group: 'defaultBrakeGroup',
                 /* eslint-enable */
             },
-            timestamp: 1494222986972,
+            timestamp: undefined,
         },
     ]);
 

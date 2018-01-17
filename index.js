@@ -81,13 +81,13 @@ function addEventsForStats(breaker) {
     const circuitOpenedCount = metrics.circuitOpenedCount;
 
     breaker.on('exec', () =>
-        executeCount.labels(breakerName, breakerGroup).inc(1, Date.now())
+        executeCount.labels(breakerName, breakerGroup).inc()
     );
     breaker.on('success', duration => {
         // Make duration into seconds
         duration /= 1000;
 
-        successCount.labels(breakerName, breakerGroup).inc(1, Date.now());
+        successCount.labels(breakerName, breakerGroup).inc();
 
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
         durationBuckets.labels(breakerName, breakerGroup).observe(duration);
@@ -96,7 +96,7 @@ function addEventsForStats(breaker) {
         // Make duration into seconds
         duration /= 1000;
 
-        failureCount.labels(breakerName, breakerGroup).inc(1, Date.now());
+        failureCount.labels(breakerName, breakerGroup).inc();
 
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
         durationBuckets.labels(breakerName, breakerGroup).observe(duration);
@@ -105,21 +105,19 @@ function addEventsForStats(breaker) {
         // Make duration into seconds
         duration /= 1000;
 
-        timeoutCount.labels(breakerName, breakerGroup).inc(1, Date.now());
+        timeoutCount.labels(breakerName, breakerGroup).inc();
 
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
         durationBuckets.labels(breakerName, breakerGroup).observe(duration);
     });
     breaker.on('healthCheckFailed', () =>
-        healthCheckFailedCount
-            .labels(breakerName, breakerGroup)
-            .inc(1, Date.now())
+        healthCheckFailedCount.labels(breakerName, breakerGroup).inc()
     );
     breaker.on('circuitClosed', () =>
-        circuitClosedCount.labels(breakerName, breakerGroup).inc(1, Date.now())
+        circuitClosedCount.labels(breakerName, breakerGroup).inc()
     );
     breaker.on('circuitOpen', () =>
-        circuitOpenedCount.labels(breakerName, breakerGroup).inc(1, Date.now())
+        circuitOpenedCount.labels(breakerName, breakerGroup).inc()
     );
 
     return breaker;
