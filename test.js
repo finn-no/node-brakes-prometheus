@@ -136,3 +136,15 @@ test.serial('return input', t => {
 
     brake.destroy();
 });
+
+test.serial('options can add a prefix', t => {
+    const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
+    t.context.module(brake, { prefix: 'some_prefix_' });
+
+    const metrics = register.getMetricsAsJSON();
+    metrics.forEach(metric => {
+        t.true(metric.name.substring(0, 12) === 'some_prefix_');
+    });
+
+    brake.destroy();
+});
