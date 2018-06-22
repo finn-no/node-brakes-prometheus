@@ -9,51 +9,53 @@ const exponentialBuckets = prometheus.exponentialBuckets;
 
 let metrics;
 
-function initializeMetrics() {
+function initializeMetrics(options) {
+    const prefix = options.prefix || '';
+
     metrics = {
         executeCount: new Counter({
-            name: 'breaker_execute_total',
+            name: `${prefix}breaker_execute_total`,
             help: 'Resolver circuit breaker execute count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         successCount: new Counter({
-            name: 'breaker_success_total',
+            name: `${prefix}breaker_success_total`,
             help: 'Resolver circuit breaker success count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         failureCount: new Counter({
-            name: 'breaker_failure_total',
+            name: `${prefix}breaker_failure_total`,
             help: 'Resolver circuit breaker failure count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         timeoutCount: new Counter({
-            name: 'breaker_timeout_total',
+            name: `${prefix}breaker_timeout_total`,
             help: 'Resolver circuit breaker timeout count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         healthCheckFailedCount: new Counter({
-            name: 'breaker_reject_total',
+            name: `${prefix}breaker_reject_total`,
             help: 'Resolver circuit breaker reject count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         circuitClosedCount: new Counter({
-            name: 'breaker_circuit_closed_total',
+            name: `${prefix}breaker_circuit_closed_total`,
             help: 'Resolver circuit breaker circuit closed count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         circuitOpenedCount: new Counter({
-            name: 'breaker_circuit_opened_total',
+            name: `${prefix}breaker_circuit_opened_total`,
             help: 'Resolver circuit breaker circuit opened count',
             labelNames: ['breaker_name', 'breaker_group'],
         }),
         durationSummary: new Summary({
-            name: 'breaker_duration_seconds',
+            name: `${prefix}breaker_duration_seconds`,
             help: 'Resolver circuit breaker duration summary',
             labelNames: ['breaker_name', 'breaker_group'],
             percentiles: [0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1],
         }),
         durationBuckets: new Histogram({
-            name: 'breaker_duration_buckets_seconds',
+            name: `${prefix}breaker_duration_buckets_seconds`,
             help: 'Resolver circuit breaker duration buckets',
             labelNames: ['breaker_name', 'breaker_group'],
             buckets: exponentialBuckets(0.001, 1.5, 20)
@@ -62,9 +64,11 @@ function initializeMetrics() {
         }),
     };
 }
-function addEventsForStats(breaker) {
+function addEventsForStats(breaker, options) {
+    options = options || {};
+
     if (metrics == null) {
-        initializeMetrics();
+        initializeMetrics(options);
     }
 
     const breakerName = breaker.name;
@@ -86,7 +90,6 @@ function addEventsForStats(breaker) {
     breaker.on('success', duration => {
         // Make duration into seconds
         duration /= 1000;
-
         successCount.labels(breakerName, breakerGroup).inc();
 
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
