@@ -3541,9 +3541,16 @@ require-precompiled@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/require-precompiled/-/require-precompiled-0.1.0.tgz#5a1b52eb70ebed43eb982e974c85ab59571e56fa"
 
-require-uncached@^1.0.2, require-uncached@^1.0.3:
+require-uncached@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/require-uncached/-/require-uncached-1.0.3.tgz#4e0d56d6c9662fd31e43011c4b95aa49955421d3"
+  dependencies:
+    caller-path "^0.1.0"
+    resolve-from "^1.0.0"
+
+require-uncached@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/require-uncached/-/require-uncached-2.0.0.tgz#ad54186d77fecf07b63d82f8dd7aad448863b06d"
   dependencies:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
