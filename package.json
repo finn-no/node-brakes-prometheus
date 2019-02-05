@@ -32,7 +32,7 @@
         "prom-client": ">=10 <12"
     },
     "devDependencies": {
-        "ava": "^0.25.0",
+        "ava": "^1.2.1",
         "brakes": "^2.3.0",
         "eslint": "^4.1.1",
         "eslint-config-finn": "^3.0.0",
