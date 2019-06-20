@@ -3364,9 +3364,10 @@ progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
 
-prom-client@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-11.0.0.tgz#d7e5b58778e04c774de2aa7e4d400552b48713ab"
+prom-client@^11.5.2:
+  version "11.5.2"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-11.5.2.tgz#efc721452158a1a03331c0796dd2c558c40926d0"
+  integrity sha512-moMHqs3Z1cW1vTCvZx9Edyy96GiVBLgOtPk1fif4EyDC9Xbn2tcv090TgxZocHh5XsK3H/kfKaYY4h5MMhGrsA==
   dependencies:
     tdigest "^0.1.1"
 
