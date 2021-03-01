@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- 10
-- 8
-- 6
-- stable
+    - 10
+    - 8
+    - 6
+    - stable
 before_install: yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 cache:
-  yarn: true
+    yarn: true
 env:
-  global:
-    secure: a7NT9M2j5o6FckwHs+cDIGXy26NQFlIoC48JJ0wbvqJKzR3HEm6/z/L2M+pZSENbyxhslHwM+Z1Q1eZeojYOuJzUZBU1+Q+nz3hAyMNAt0ViIv4JbZwpVWVnA2fqRbX88VeZXJtXgWZM4qaFKRAcWH74vbfiF8ESMcRnyQv7pcSbcrsugt9Re74rH4zMMRU5XMSdhqVQxgAhpQTszOrRyPwTzGUdrN9p38nqwGpvinH/cc+UyJAamiXw1eo84bS9MZk2F28SWoAboH+oQdzRO7vKEbeg6qafCu/aLESV5KEl8PnHByPXUx4rJIebRyUDnqTHxSEUvYUT1XWucRmLgms5fz6HNb2RSBGfBs0+8z835/PII3nKthewpe03Zcl3Erqdf/M/KAVZukgrzMHKLMz38+5+6VJxn01Jk4Y7YTjG25RpFRtbIU/2IafruK4Xt48BNo532U3LJBPF0tPd1swgvRwSApKIC0AB10DtyVrXTq/YUW8qFsxqdjD3QQ9YY8aQrKGcoPKHB1B5sme3q9YuuIivMvu6IGqnnQHpwm0xb374pJdlZ5uPQAfDkICYTwULfqOhYNz8J+s2FXC1BwVJCUEWegryFnqhPS1E4wxAObOd57mMjOPlhnhRmLpJUJzj7jbZQVfXzHTXaM680diRrFzb/cTrm/LLAekH5o4=
+    global:
+        secure: a7NT9M2j5o6FckwHs+cDIGXy26NQFlIoC48JJ0wbvqJKzR3HEm6/z/L2M+pZSENbyxhslHwM+Z1Q1eZeojYOuJzUZBU1+Q+nz3hAyMNAt0ViIv4JbZwpVWVnA2fqRbX88VeZXJtXgWZM4qaFKRAcWH74vbfiF8ESMcRnyQv7pcSbcrsugt9Re74rH4zMMRU5XMSdhqVQxgAhpQTszOrRyPwTzGUdrN9p38nqwGpvinH/cc+UyJAamiXw1eo84bS9MZk2F28SWoAboH+oQdzRO7vKEbeg6qafCu/aLESV5KEl8PnHByPXUx4rJIebRyUDnqTHxSEUvYUT1XWucRmLgms5fz6HNb2RSBGfBs0+8z835/PII3nKthewpe03Zcl3Erqdf/M/KAVZukgrzMHKLMz38+5+6VJxn01Jk4Y7YTjG25RpFRtbIU/2IafruK4Xt48BNo532U3LJBPF0tPd1swgvRwSApKIC0AB10DtyVrXTq/YUW8qFsxqdjD3QQ9YY8aQrKGcoPKHB1B5sme3q9YuuIivMvu6IGqnnQHpwm0xb374pJdlZ5uPQAfDkICYTwULfqOhYNz8J+s2FXC1BwVJCUEWegryFnqhPS1E4wxAObOd57mMjOPlhnhRmLpJUJzj7jbZQVfXzHTXaM680diRrFzb/cTrm/LLAekH5o4=

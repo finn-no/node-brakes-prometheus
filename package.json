@@ -10,9 +10,11 @@
         "cover": "nyc ava",
         "lint": "eslint .",
         "postpublish": "git push --follow-tags",
-        "pretest": "npm run lint",
+        "pretest": "npm run lint && npm run style:check",
         "test": "ava",
-        "precommit": "lint-staged"
+        "precommit": "lint-staged",
+        "style:check": "prettier -c .",
+        "style:fix": "prettier -w ."
     },
     "keywords": [
         "hystrix",
