@@ -12,9 +12,10 @@
         "postpublish": "git push --follow-tags",
         "pretest": "npm run lint && npm run style:check",
         "test": "ava",
-        "precommit": "lint-staged",
+        "postinstall": "husky install",
         "style:check": "prettier -c .",
-        "style:fix": "prettier -w ."
+        "style:fix": "prettier -w .",
+        "prepare": "husky install"
     },
     "keywords": [
         "hystrix",
@@ -39,9 +40,8 @@
         "eslint": "^7.21.0",
         "eslint-config-prettier": "^8.1.0",
         "eslint-plugin-ava": "^11.0.0",
-        "husky": "^0.14.3",
+        "husky": "^5.1.2",
         "in-publish": "^2.0.0",
-        "lint-staged": "^7.2.0",
         "nyc": "^15.1.0",
         "prettier": "^2.2.1",
         "prom-client": "^11.0.0",
