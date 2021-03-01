@@ -1,7 +1,7 @@
-import test from 'ava';
-import requireUncached from 'require-uncached';
-import Brakes from 'brakes';
-import { register } from 'prom-client';
+const test = require('ava');
+const requireUncached = require('require-uncached');
+const Brakes = require('brakes');
+const { register } = require('prom-client');
 
 const origNow = Date.now;
 
