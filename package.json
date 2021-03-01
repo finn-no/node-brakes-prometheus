@@ -45,7 +45,7 @@
         "nyc": "^15.1.0",
         "prettier": "^2.2.1",
         "prom-client": "^11.0.0",
-        "require-uncached": "^1.0.2"
+        "require-uncached": "^2.0.0"
     },
     "lint-staged": {
         "*.js": [
