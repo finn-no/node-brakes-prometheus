@@ -59,7 +59,7 @@ function initializeMetrics(options) {
             help: 'Resolver circuit breaker duration buckets',
             labelNames: ['breaker_name', 'breaker_group'],
             buckets: exponentialBuckets(0.001, 1.5, 20)
-                .map(f => Math.round(f * 10000) / 10000)
+                .map((f) => Math.round(f * 10000) / 10000)
                 .concat(Infinity),
         }),
     };
@@ -87,7 +87,7 @@ function addEventsForStats(breaker, options) {
     breaker.on('exec', () =>
         executeCount.labels(breakerName, breakerGroup).inc()
     );
-    breaker.on('success', duration => {
+    breaker.on('success', (duration) => {
         // Make duration into seconds
         duration /= 1000;
         successCount.labels(breakerName, breakerGroup).inc();
@@ -95,7 +95,7 @@ function addEventsForStats(breaker, options) {
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
         durationBuckets.labels(breakerName, breakerGroup).observe(duration);
     });
-    breaker.on('failure', duration => {
+    breaker.on('failure', (duration) => {
         // Make duration into seconds
         duration /= 1000;
 
@@ -104,7 +104,7 @@ function addEventsForStats(breaker, options) {
         durationSummary.labels(breakerName, breakerGroup).observe(duration);
         durationBuckets.labels(breakerName, breakerGroup).observe(duration);
     });
-    breaker.on('timeout', duration => {
+    breaker.on('timeout', (duration) => {
         // Make duration into seconds
         duration /= 1000;
 
@@ -126,11 +126,12 @@ function addEventsForStats(breaker, options) {
     return breaker;
 }
 
-module.exports = function() {
+module.exports = function () {
     try {
         require.resolve('prom-client');
     } catch (e) {
         if (e.code === 'MODULE_NOT_FOUND') {
+            // eslint-disable-next-line
             console.log(
                 '`prom-client` not available, metrics will not be recorded.'
             );

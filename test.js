@@ -1,22 +1,22 @@
-import test from 'ava';
-import requireUncached from 'require-uncached';
-import Brakes from 'brakes';
-import { register } from 'prom-client';
+const test = require('ava');
+const requireUncached = require('require-uncached');
+const Brakes = require('brakes');
+const { register } = require('prom-client');
 
 const origNow = Date.now;
-
-test.beforeEach(t => {
-    t.context.module = requireUncached('./');
-    Date.now = () => 1494222986972;
-    register.clear();
-});
 
 test.after.always(() => {
     Date.now = origNow;
     register.clear();
 });
 
-test.serial('add metrics on new brakes', t => {
+test.beforeEach((t) => {
+    t.context.module = requireUncached('./');
+    Date.now = () => 1494222986972;
+    register.clear();
+});
+
+test.serial('add metrics on new brakes', (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
 
     t.true(register.getMetricsAsJSON().length === 0);
@@ -28,7 +28,7 @@ test.serial('add metrics on new brakes', t => {
     brake.destroy();
 });
 
-test.serial('listen to execution', async t => {
+test.serial('listen to execution', async (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
 
     t.context.module(brake);
@@ -53,10 +53,10 @@ test.serial('listen to execution', async t => {
     brake.destroy();
 });
 
-test.serial('record timings in seconds', async t => {
+test.serial('record timings in seconds', async (t) => {
     Date.now = origNow;
     const brake = new Brakes(
-        () => new Promise(resolve => setTimeout(resolve, 250)),
+        () => new Promise((resolve) => setTimeout(resolve, 250)),
         { name: 'some-name' }
     );
 
@@ -72,7 +72,7 @@ test.serial('record timings in seconds', async t => {
     brake.destroy();
 });
 
-test.serial('handle failure', async t => {
+test.serial('handle failure', async (t) => {
     const brake = new Brakes(() => Promise.reject(new Error('test')), {
         name: 'some-name',
     });
@@ -100,9 +100,9 @@ test.serial('handle failure', async t => {
     brake.destroy();
 });
 
-test.serial('handle timeouts', async t => {
+test.serial('handle timeouts', async (t) => {
     const brake = new Brakes(
-        () => new Promise(resolve => setTimeout(resolve, 250)),
+        () => new Promise((resolve) => setTimeout(resolve, 250)),
         { name: 'some-name', timeout: 50 }
     );
 
@@ -129,7 +129,7 @@ test.serial('handle timeouts', async t => {
     brake.destroy();
 });
 
-test.serial('return input', t => {
+test.serial('return input', (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
 
     t.true(t.context.module(brake) === brake);
@@ -137,12 +137,12 @@ test.serial('return input', t => {
     brake.destroy();
 });
 
-test.serial('options can add a prefix', t => {
+test.serial('options can add a prefix', (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
     t.context.module(brake, { prefix: 'some_prefix_' });
 
     const metrics = register.getMetricsAsJSON();
-    metrics.forEach(metric => {
+    metrics.forEach((metric) => {
         t.true(metric.name.substring(0, 12) === 'some_prefix_');
     });
 
