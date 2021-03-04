@@ -16,14 +16,16 @@ test.beforeEach((t) => {
     register.clear();
 });
 
-test.serial('add metrics on new brakes', (t) => {
+test.serial('add metrics on new brakes', async (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
 
-    t.true(register.getMetricsAsJSON().length === 0);
+    let metrics = await register.getMetricsAsJSON();
+    t.true(metrics.length === 0);
 
     t.context.module(brake);
 
-    t.true(register.getMetricsAsJSON().length === 9);
+    metrics = await register.getMetricsAsJSON();
+    t.true(metrics.length === 9);
 
     brake.destroy();
 });
@@ -33,11 +35,13 @@ test.serial('listen to execution', async (t) => {
 
     t.context.module(brake);
 
-    t.deepEqual(register.getMetricsAsJSON()[0].values, []);
+    let metrics = await register.getMetricsAsJSON();
+    t.deepEqual(metrics[0].values, []);
 
     await brake.exec();
 
-    t.deepEqual(register.getMetricsAsJSON()[0].values, [
+    metrics = await register.getMetricsAsJSON();
+    t.deepEqual(metrics[0].values, [
         {
             value: 1,
             labels: {
@@ -46,7 +50,6 @@ test.serial('listen to execution', async (t) => {
                 breaker_group: 'defaultBrakeGroup',
                 /* eslint-enable */
             },
-            timestamp: undefined,
         },
     ]);
 
@@ -61,12 +64,13 @@ test.serial('record timings in seconds', async (t) => {
     );
 
     t.context.module(brake);
-
-    t.deepEqual(register.getMetricsAsJSON()[0].values, []);
+    let metrics = await register.getMetricsAsJSON();
+    t.deepEqual(metrics[0].values, []);
 
     await brake.exec();
 
-    const durationSum = register.getMetricsAsJSON()[7].values[9].value;
+    metrics = await register.getMetricsAsJSON();
+    const durationSum = metrics[7].values[9].value;
     t.true(durationSum >= 0.25 && durationSum < 0.275);
 
     brake.destroy();
@@ -78,19 +82,19 @@ test.serial('handle failure', async (t) => {
     });
 
     t.context.module(brake);
-
-    t.deepEqual(register.getMetricsAsJSON()[0].values, []);
+    let metrics = await register.getMetricsAsJSON();
+    t.deepEqual(metrics[0].values, []);
 
     try {
         await brake.exec();
     } catch (e) {
         // ignored
     }
-
-    const execs = register.getMetricsAsJSON()[0].values[0].value;
-    const successes = register.getMetricsAsJSON()[1].values;
-    const failures = register.getMetricsAsJSON()[2].values[0].value;
-    const timeouts = register.getMetricsAsJSON()[3].values;
+    metrics = await register.getMetricsAsJSON();
+    const execs = metrics[0].values[0].value;
+    const successes = metrics[1].values;
+    const failures = metrics[2].values[0].value;
+    const timeouts = metrics[3].values;
 
     t.true(execs === 1);
     t.true(successes.length === 0);
@@ -107,19 +111,20 @@ test.serial('handle timeouts', async (t) => {
     );
 
     t.context.module(brake);
-
-    t.deepEqual(register.getMetricsAsJSON()[0].values, []);
+    let metrics = await register.getMetricsAsJSON();
+    t.deepEqual(metrics[0].values, []);
 
     try {
         await brake.exec();
     } catch (e) {
         // ignored
     }
+    metrics = await register.getMetricsAsJSON();
 
-    const execs = register.getMetricsAsJSON()[0].values[0].value;
-    const successes = register.getMetricsAsJSON()[1].values;
-    const failures = register.getMetricsAsJSON()[2].values;
-    const timeouts = register.getMetricsAsJSON()[3].values[0].value;
+    const execs = metrics[0].values[0].value;
+    const successes = metrics[1].values;
+    const failures = metrics[2].values;
+    const timeouts = metrics[3].values[0].value;
 
     t.true(execs === 1);
     t.true(successes.length === 0);
@@ -137,11 +142,11 @@ test.serial('return input', (t) => {
     brake.destroy();
 });
 
-test.serial('options can add a prefix', (t) => {
+test.serial('options can add a prefix', async (t) => {
     const brake = new Brakes(() => Promise.resolve(), { name: 'some-name' });
     t.context.module(brake, { prefix: 'some_prefix_' });
 
-    const metrics = register.getMetricsAsJSON();
+    const metrics = await register.getMetricsAsJSON();
     metrics.forEach((metric) => {
         t.true(metric.name.substring(0, 12) === 'some_prefix_');
     });
