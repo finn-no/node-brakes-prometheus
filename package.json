@@ -12,7 +12,6 @@
         "postpublish": "git push --follow-tags",
         "pretest": "npm run lint && npm run style:check",
         "test": "ava",
-        "postinstall": "husky install",
         "style:check": "prettier -c .",
         "style:fix": "prettier -w .",
         "prepare": "husky install"
