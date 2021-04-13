@@ -13,8 +13,7 @@
         "pretest": "npm run lint && npm run style:check",
         "test": "ava",
         "style:check": "prettier -c .",
-        "style:fix": "prettier -w .",
-        "prepare": "husky install"
+        "style:fix": "prettier -w ."
     },
     "keywords": [
         "hystrix",
@@ -31,7 +30,7 @@
     "repository": "finn-no/node-brakes-prometheus",
     "dependencies": {},
     "peerDependencies": {
-        "prom-client": ">=12"
+        "prom-client": ">=13"
     },
     "devDependencies": {
         "ava": "^3.15.0",
@@ -39,7 +38,6 @@
         "eslint": "^7.21.0",
         "eslint-config-prettier": "^8.1.0",
         "eslint-plugin-ava": "^11.0.0",
-        "husky": "^5.1.2",
         "in-publish": "^2.0.0",
         "nyc": "^15.1.0",
         "prettier": "^2.2.1",
